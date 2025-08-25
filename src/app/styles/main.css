@@ -1,0 +1,582 @@
+   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Creepster&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: #e4c1f9;
+            background-image: 
+                radial-gradient(circle at 20% 20%, #d0a9f5 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, #fcf6bd 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, #a8dadc 0%, transparent 50%);
+            min-height: 100vh;
+            color: #2d1b69;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+        
+        /* Game Boy screen effect */
+        .screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 50%, rgba(0,0,0,0.03) 50%),
+                linear-gradient(rgba(0,0,0,0.03) 50%, transparent 50%);
+            background-size: 2px 2px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+
+        /* Make sure header can show the runner */
+.header {
+  position: relative;
+  overflow: hidden; /* keeps the runner inside the header bounds */
+}
+
+/* The track next to the logo */
+.header-runner {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;       /* if header-content uses flex */
+  height: 56px;         /* runner height */
+}
+
+/* The actual lottie */
+#bulbaLottie {
+  position: absolute;
+  width: 100px;          /* lottie display size */
+  height: 100px;
+  left: -96px;          /* start off-screen left */
+  top: -15px;            /* tweak to align with your header */
+  pointer-events: none; /* don't block clicks */
+  will-change: transform;
+}
+
+/* The run animation */
+@keyframes bulba-run-across {
+  from { transform: translateX(-120px); }
+  to   { transform: translateX(calc(100vw + 120px)); }
+}
+
+/* Only animate when JS adds this class (respects reduced motion) */
+#bulbaLottie.is-running {
+  animation: bulba-run-across 8s linear infinite;
+}
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0,0,0,0.02) 50%);
+            background-size: 1px 2px;
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: #7209b7;
+            border: 4px solid #2d1b69;
+            border-radius: 0;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 
+                4px 4px 0px #2d1b69,
+                inset 2px 2px 0px #d0a9f5;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: #2d1b69;
+            z-index: -1;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .logo {
+            font-family: 'Creepster', cursive;
+            font-size: 24px;
+            color: #fcf6bd;
+            text-shadow: 2px 2px 0px #2d1b69;
+            letter-spacing: 2px;
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-input {
+            background: #fcf6bd;
+            border: 3px solid #2d1b69;
+            padding: 8px 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: #2d1b69;
+            min-width: 200px;
+            box-shadow: inset 2px 2px 0px #f4f3ee;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: inset 2px 2px 0px #f4f3ee, 0 0 0 2px #7209b7;
+        }
+        
+        .button-wrapper {
+             text-align: center;  /* centers the button horizontally */
+            margin-top: 1rem;    /* optional spacing */
+        }
+
+        .search-btn {
+            background: #457b9d;
+            border: 3px solid #2d1b69;
+            padding: 8px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: #fcf6bd;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow: 2px 2px 0px #2d1b69;
+        }
+        
+        .search-btn:hover {
+            background: #a8dadc;
+            color: #2d1b69;
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #2d1b69;
+        }
+        
+        .search-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+        
+        /* Main title */
+        .main-title {
+            background: #7209b7;
+            border: 4px solid #2d1b69;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 
+                4px 4px 0px #2d1b69,
+                inset 2px 2px 0px #d0a9f5;
+        }
+        
+        .main-title h1 {
+            font-size: 16px;
+            color: #fcf6bd;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #2d1b69;
+        }
+        
+        .main-title p {
+            font-size: 8px;
+            color: #e4c1f9;
+            line-height: 1.4;
+        }
+        
+        /* Filter section */
+        .filter-section {
+            background: #457b9d;
+            border: 4px solid #2d1b69;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 
+                4px 4px 0px #2d1b69,
+                inset 2px 2px 0px #a8dadc;
+        }
+        
+        .filter-title {
+            color: #fcf6bd;
+            font-size: 12px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 0px #2d1b69;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .button-wrapper {
+             text-align: center;  /* centers the button horizontally */
+            margin-top: 1rem;    /* optional spacing */
+        }
+        
+        .filter-btn {
+            background: #fcf6bd;
+            border: 3px solid #2d1b69;
+            padding: 6px 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            color: #2d1b69;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow: 2px 2px 0px #2d1b69;
+        }
+        
+        .filter-btn:hover {
+            background: #f4f3ee;
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #2d1b69;
+        }
+        
+        .filter-btn.active {
+            background: #d0a9f5;
+            color: #2d1b69;
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+        
+        /* Card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .pokemon-card {
+            background: #7209b7;
+            border: 4px solid #2d1b69;
+            padding: 15px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 
+                4px 4px 0px #2d1b69,
+                inset 2px 2px 0px #d0a9f5;
+        }
+        
+        .pokemon-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 
+                6px 6px 0px #2d1b69,
+                inset 2px 2px 0px #d0a9f5;
+        }
+        
+        .pokemon-card:active {
+            transform: translate(2px, 2px);
+            box-shadow: 
+                2px 2px 0px #2d1b69,
+                inset 2px 2px 0px #d0a9f5;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: #fcf6bd;
+            border: 3px solid #2d1b69;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin-bottom: 10px;
+            box-shadow: inset 2px 2px 0px #f4f3ee;
+        }
+        
+        .card-name {
+            color: #fcf6bd;
+            font-size: 12px;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 0px #2d1b69;
+        }
+        
+        .card-type {
+            background: #a8dadc;
+            color: #2d1b69;
+            padding: 4px 8px;
+            display: inline-block;
+            font-size: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #2d1b69;
+            box-shadow: 1px 1px 0px #2d1b69;
+        }
+        
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .stat {
+            text-align: center;
+            background: #fcf6bd;
+            border: 2px solid #2d1b69;
+            padding: 6px 4px;
+            box-shadow: inset 1px 1px 0px #f4f3ee;
+        }
+        
+        .stat-value {
+            font-size: 10px;
+            color: #2d1b69;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 6px;
+            color: #7209b7;
+            display: block;
+            margin-top: 2px;
+        }
+        
+        /* Info panels */
+        .info-panel {
+            background: #457b9d;
+            border: 4px solid #2d1b69;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 
+                4px 4px 0px #2d1b69,
+                inset 2px 2px 0px #a8dadc;
+        }
+        
+        .info-panel h2 {
+            color: #fcf6bd;
+            font-size: 12px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            text-shadow: 1px 1px 0px #2d1b69;
+        }
+        
+        .info-panel p {
+            color: #e4c1f9;
+            font-size: 8px;
+            line-height: 1.4;
+        }
+        
+        .button {
+            background: #d0a9f5;
+            color: #2d1b69;
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        
+  #lottieLoader {
+    width: 500px;          /* tweak as you like */
+    height: 300px;
+    margin: 16px auto;     /* center horizontally */
+    display: none;         /* hidden until loading */
+  }
+  #cardContainer img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 12px auto;
+  }
+
+:root {
+  --panel-bg: #0b0f1a;
+  --panel-border: #22324a;
+  --panel-glow: #3ad1ff55;
+  --text-primary: #e8f1ff;
+  --text-dim: #9bb3d1;
+  --chip-bg: #152033;
+  --chip-text: #cfe6ff;
+  --accent: #3ad1ff;
+}
+
+.result-card {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 20px;
+  color: var(--text-primary);
+  margin-top: 20px;
+}
+
+.result-card.empty,
+.result-card.error {
+  display: block;
+  text-align: center;
+  padding: 32px;
+  color: var(--text-dim);
+}
+
+.result-card img.card-art {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  background: #060a12;
+}
+
+.card-meta {
+  display: grid;
+  gap: 14px;
+}
+
+.card-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.card-title h2 {
+  font-size: 1.6rem;
+  margin: 0;
+  letter-spacing: .5px;
+}
+
+.subtle {
+  color: var(--text-dim);
+  font-size: .95rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: .85rem;
+  border: 1px solid #22324a;
+}
+
+.type-chip { font-weight: 600; }
+
+/* Optional: color by type */
+.type-fire    { background: #2a1111; color:#ffb3b3; border-color:#612020; }
+.type-water   { background: #101b2a; color:#b3d9ff; border-color:#1d3b61; }
+.type-grass   { background: #122014; color:#b8f1c9; border-color:#204f2a; }
+.type-electric{ background: #251f12; color:#ffe9a6; border-color:#5b4b1e; }
+.type-psychic { background: #201224; color:#f0b3ff; border-color:#462258; }
+.type-fighting{ background: #241814; color:#ffc9b0; border-color:#5a321f; }
+.type-dark    { background: #0e0f12; color:#c6d0e3; border-color:#232733; }
+.type-metal   { background: #14181f; color:#d7e3f7; border-color:#2a3446; }
+.type-dragon  { background: #121721; color:#c7d9ff; border-color:#283451; }
+.type-fairy   { background: #241621; color:#ffcfe9; border-color:#4f2a49; }
+
+/* Info grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin-top: 6px;
+}
+
+.info-item {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.info-label {
+  color: var(--text-dim);
+  font-size: .85rem;
+  min-width: 84px;
+}
+
+.card-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .result-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+        
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 12px;
+            color: #7209b7;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #fcf6bd;
+            border-top: 4px solid #7209b7;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Media queries */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .search-input {
+                min-width: 150px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 15px;
+            }
+            
+            .main-title h1 {
+                font-size: 14px;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
