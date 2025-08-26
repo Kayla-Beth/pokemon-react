@@ -1,23 +1,20 @@
-import './app/styles/main.css';
-
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './app/shared/Header';
-
-
-import { Routes, Route } from "react-router-dom";
-import HomePage from "./app/pages/HomePage";
+import HomePage from './app/pages/HomePage';
+import './app/styles/main.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <Router>
+      <Header /> {/* This must be at the top */}
       <Routes>
         <Route path="/" element={<HomePage />} />
+        {/* add other routes here */}
       </Routes>
-
-    </div>
+    </Router>
   );
 }
 

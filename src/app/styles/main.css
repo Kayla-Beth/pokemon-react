@@ -55,7 +55,7 @@
   width: 100px;          /* lottie display size */
   height: 100px;
   left: -96px;          /* start off-screen left */
-  top: -15px;            /* tweak to align with your header */
+  top: -35px;            /* tweak to align with your header */
   pointer-events: none; /* don't block clicks */
   will-change: transform;
 }
@@ -91,45 +91,81 @@
         }
         
         /* Header */
-        .header {
-            background: #7209b7;
-            border: 4px solid #2d1b69;
-            border-radius: 0;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 
-                4px 4px 0px #2d1b69,
-                inset 2px 2px 0px #d0a9f5;
-            position: relative;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: #2d1b69;
-            z-index: -1;
-        }
-        
+        /* Style the reactstrap navbar directly */
+.custom-navbar {
+  background: #7209b7 !important;
+  border: 4px solid #2d1b69;
+  border-radius: 0;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 
+    4px 4px 0px #2d1b69,
+    inset 2px 2px 0px #d0a9f5;
+  position: relative;
+}
+
+.custom-navbar::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #2d1b69;
+  z-index: -1;
+}
+/* Navbar links */
+.custom-navbar .nav-link {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: #fcf6bd !important;        /* light yellow text */
+  text-shadow: 1px 1px 0px #2d1b69; /* retro pixel shadow */
+  padding: 8px 12px;
+  transition: all 0.15s ease;
+}
+
+/* Hover effect */
+.custom-navbar .nav-link:hover {
+  background: #d0a9f5;  /* pastel purple highlight */
+  color: #2d1b69 !important;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #2d1b69;
+  border-radius: 3px;
+}
+
+/* Active link (for current route) */
+.custom-navbar .nav-link.active {
+  background: #457b9d;
+  color: #fcf6bd !important;
+  box-shadow: inset 2px 2px 0px #2d1b69;
+  border-radius: 3px;
+}
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            row-gap: 15px;
+            column-gap: 150px;
             justify-content: center;
         }
         
-        .logo {
-            font-family: 'Creepster', cursive;
-            font-size: 24px;
-            color: #fcf6bd;
-            text-shadow: 2px 2px 0px #2d1b69;
-            letter-spacing: 2px;
-        }
+        
+/* Remove default list dots and spacing from reactstrap Nav */
+.custom-navbar .nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.custom-navbar .nav-item {
+  list-style: none;
+}
+
+        .navbar-logo {
+  width: 150px; /* adjust as needed */
+  display: flex !important;
+}
         
         .search-container {
             display: flex;
